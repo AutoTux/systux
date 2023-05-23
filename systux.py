@@ -1,6 +1,6 @@
-# this is part of the InitTux project.
+# this is part of the SysTux project.
 #
-# Release: v1.0-a1
+# Release: v1.0.a1
 #
 # Copyright (c) 2023  Juan Bindez  <juanbindez780@gmail.com>
 #
@@ -77,7 +77,8 @@ def main():
     create_table(conexao)
 
     while True:
-        parser = argparse.ArgumentParser(description="Armazena nome de programas a serem baixados no futuro")
+        parser = argparse.ArgumentParser(description="""[SysTux] Armazena nome de programas a serem baixados no futuro,
+                                                         Este software é livre sobre a licença GNU GPLv2.0""")
 
         parser.add_argument('-d', action='store_true', help='Inicia o download dos pacotes')
         parser.add_argument('-v', action='store_true', help='Vizualizar o banco de dados')
