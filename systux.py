@@ -96,7 +96,6 @@ def main():
             print("Ctrl + C para sair")
             entry = input('pacote>>>')
             inserir_pacote(conexao, entry)
-            break
         else:
             visualizar_pacotes(conexao)
             break
