@@ -2,7 +2,7 @@
 
 #### software linha de comando.
 
-#### As vezes você precisa formatar seu linux e tem que instalar um monte de pacotes novamente, este script salva estes pacotes em uma lista em um banco de dados sqlite de bolso ou seja você pode livar até em um pendrive, executar os comandos para instalar instalar novamente estes comandos em sua maquina, salve este script com o banco de dados onde achar melhor para usa-lo novamente no futuro.
+#### Às vezes, é necessário reformatar o seu sistema operacional Linux e reinstalar diversos pacotes. Este script foi desenvolvido para simplificar esse processo, permitindo que você salve uma lista desses pacotes em um banco de dados SQLite portátil. Dessa forma, você pode até mesmo armazenar essa lista em um pendrive, executar os comandos para reinstalar esses pacotes em sua máquina e guardar o script juntamente com o banco de dados em um local conveniente para uso futuro.
 
 ### Instalação:
 
