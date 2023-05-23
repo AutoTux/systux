@@ -1,6 +1,6 @@
 # this is part of the SysTux project.
 #
-# Release: v1.0.a2
+# Release: v1.0.a3
 #
 # Copyright (c) 2023  Juan Bindez  <juanbindez780@gmail.com>
 #
@@ -77,12 +77,13 @@ def main():
     create_table(conexao)
 
     while True:
-        parser = argparse.ArgumentParser(description="""[SysTux] Armazena nome de programas a serem baixados no futuro,
-                                                         Este software é livre sobre a licença GNU GPLv2.0""")
+        parser = argparse.ArgumentParser(prog='SysTux', description="""Armazena nome de programas a serem baixados no futuro,""")
 
         parser.add_argument('-d', action='store_true', help='Inicia o download dos pacotes')
         parser.add_argument('-v', action='store_true', help='Vizualizar o banco de dados')
         parser.add_argument('-i', action='store_true', help='Inserir nome dos pacotes para o banco de dados')
+        parser.add_argument('-V', '--version', action='version', version='%(prog)s 1.0.a3')
+        parser.add_argument('-L', action='store_true', help='mostra a licença do software')
 
         args = parser.parse_args()
         
@@ -93,9 +94,15 @@ def main():
             visualizar_pacotes(conexao)
             break
         elif args.i:
-            print("Ctrl + C para sair")
-            entry = input('pacote>>>')
-            inserir_pacote(conexao, entry)
+            try:
+                print("Ctrl + C para sair")
+                entry = input('pacote>>>')
+                inserir_pacote(conexao, entry)
+            except KeyboardInterrupt:
+                break
+        elif args.L:
+            print("Licença GNU GPL v2.0")
+            break
         else:
             print("Nenhum argumanto digitado!")
             break
