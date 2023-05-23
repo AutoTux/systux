@@ -14,18 +14,9 @@
     
 ### Como usar:
 
-#### inserir um nome de pacote no banco de dados:
-
-    python3 systux.py -i
-    
-#### Ver o banco de dados:
-
-    python3 systux.py -v
-    
-#### Fazer download dos pacotes salvos no banco de dados:
-
-    python3 systux.py -d
-    
 #### Ver o menu de opções:
 
     python3 systux -h
+    
+
+![Captura de tela de 2023-05-23 15-03-26](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/76ca965a-8c79-4a5d-bb99-20e545d4a288)
