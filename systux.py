@@ -82,7 +82,7 @@ def main():
         parser.add_argument('-d', action='store_true', help='Inicia o download dos pacotes')
         parser.add_argument('-v', action='store_true', help='Vizualizar o banco de dados')
         parser.add_argument('-i', action='store_true', help='Inserir nome dos pacotes para o banco de dados')
-        parser.add_argument('-V', '--version', action='version', version='%(prog)s 1.0.a3')
+        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.a3')
         parser.add_argument('-L', action='store_true', help='mostra a licença do software')
 
         args = parser.parse_args()
