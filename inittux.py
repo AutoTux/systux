@@ -92,8 +92,8 @@ def main():
             visualizar_pacotes(conexao)
             break
         elif args.i:
-            print("Ctrl + c")
-            entry = input('pa>>>')
+            print("Ctrl + C para sair")
+            entry = input('pacote>>>')
             inserir_pacote(conexao, entry)
             break
         else:
