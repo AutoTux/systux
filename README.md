@@ -1,5 +1,7 @@
 # SysTux  v1.0.a1
 
+#### software linha de comando.
+
 ### Instalação:
 
     git clone https://github.com/AutoTux/SysTux-v1.0.a1/
