@@ -101,7 +101,7 @@ def main():
             except KeyboardInterrupt:
                 break
         elif args.L:
-            print("Licença GNU GPL v2.0")
+            print("Licença GNU GPLv2.0 para mais detalhes visite <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
             break
         else:
             print("Nenhum argumanto digitado!")
