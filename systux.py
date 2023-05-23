@@ -25,7 +25,7 @@ import argparse
 
 
 def create_connection():
-    connection = sqlite3.connect('inittux.db')
+    connection = sqlite3.connect('systux.db')
     return connection
 
 
