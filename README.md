@@ -19,4 +19,5 @@
     python3 systux -h
     
 
-![Captura de tela de 2023-05-23 15-03-26](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/76ca965a-8c79-4a5d-bb99-20e545d4a288)
+![Captura de tela de 2023-05-23 16-37-21](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/2910d5bd-ad5c-41dc-8a50-d373ed74ded8)
+
