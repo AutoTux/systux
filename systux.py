@@ -77,7 +77,7 @@ def main():
     create_table(conexao)
 
     while True:
-        parser = argparse.ArgumentParser(prog='SysTux', description="""Armazena nome de programas a serem baixados no futuro,""")
+        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Armazena nome de programas a serem baixados no futuro,""")
 
         parser.add_argument('-d', action='store_true', help='Inicia o download dos pacotes')
         parser.add_argument('-v', action='store_true', help='Vizualizar o banco de dados')
