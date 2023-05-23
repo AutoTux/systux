@@ -97,7 +97,7 @@ def main():
             entry = input('pacote>>>')
             inserir_pacote(conexao, entry)
         else:
-            visualizar_pacotes(conexao)
+            print("Nenhum argumanto digitado!")
             break
             
     conexao.close()
