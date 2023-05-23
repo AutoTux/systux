@@ -8,6 +8,10 @@
 
     git clone https://github.com/AutoTux/SysTux-v1.0.a1/
     
+----------
+
+    cd SysTux-v1.0.a1/
+    
 ### Como usar:
 
 #### inserir um nome de pacote no banco de dados:
