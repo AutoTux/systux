@@ -1,6 +1,6 @@
 # this is part of the SysTux project.
 #
-# Release: v1.0.a3
+# Release: v1.0.rc1
 #
 # Copyright (c) 2023  Juan Bindez  <juanbindez780@gmail.com>
 #
@@ -22,6 +22,7 @@
 import sqlite3
 import subprocess
 import argparse
+import os
 
 
 def create_connection():
@@ -36,14 +37,25 @@ def create_table(connection):
     connection.commit()
 
 
-def inserir_pacote(connection, nome_pacote):
+def input_package(connection, nome_pacote):
     cursor = connection.cursor()
     cursor.execute("INSERT INTO pacotes (nome) VALUES (?)", (nome_pacote,))
     connection.commit()
     print("Pacote inserido com sucesso!")
 
 
-def baixar_pacotes(conexao):
+def purge_package(nome):
+
+    conn = sqlite3.connect('systux.db')
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM pacotes WHERE nome = ?", (nome,))
+
+    conn.commit()
+    conn.close()
+
+
+def download_package(conexao):
     cursor = conexao.cursor()
     cursor.execute("SELECT nome FROM pacotes")
     nomes_pacotes = cursor.fetchall()
@@ -53,61 +65,71 @@ def baixar_pacotes(conexao):
 
         comando = ["sudo", "apt-get", "install", "-y"] + nomes_pacotes
         subprocess.run(comando)
-        print("Pacotes baixados e instalados com sucesso!")
+        print("Packages successfully downloaded and installed!")
     else:
-        print("Nenhum pacote encontrado na tabela.")
+        os.system("clear")
+        print("No packages found in database!")
 
 
-def visualizar_pacotes(conexao):
+def visualize_package(conexao):
     cursor = conexao.cursor()
     cursor.execute("SELECT * FROM pacotes")
     pacotes = cursor.fetchall()
 
     if pacotes:
-        print("Pacotes salvos no banco de dados:")
+        os.system("clear")
+        print("Package names saved in the database:")
         for pacote in pacotes:
             print(pacote[1])
     else:
-        print("Nenhum pacote encontrado na tabela.")
+        os.system("clear")
+        print("No packages found in database!")
 
 
 def main():
-    conexao = create_connection()
+    connection = create_connection()
 
-    create_table(conexao)
+    create_table(connection)
 
     while True:
-        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Armazena nome de programas a serem baixados no futuro,""")
+        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Stores names of programs to be downloaded in the future,""")
 
-        parser.add_argument('-d', action='store_true', help='Inicia o download dos pacotes')
-        parser.add_argument('-v', action='store_true', help='Vizualizar o banco de dados')
-        parser.add_argument('-i', action='store_true', help='Inserir nome dos pacotes para o banco de dados')
-        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.a3')
-        parser.add_argument('-L', action='store_true', help='mostra a licença do software')
+        parser.add_argument('-d', action='store_true', help='Start downloading packages')
+        parser.add_argument('-v', action='store_true', help='Visualize the database')
+        parser.add_argument('-i', action='store_true', help='Insert package names to database')
+        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.rc1')
+        parser.add_argument('-L', action='store_true', help='Show software license')
+        parser.add_argument('-p', '--purge', help='Pass by argument, name of the package to be deleted')
 
         args = parser.parse_args()
         
         if args.d:
-            baixar_pacotes(conexao)
+            download_package(connection)
             break
         elif args.v:
-            visualizar_pacotes(conexao)
+            visualize_package(connection)
             break
         elif args.i:
             try:
-                print("Ctrl + C para sair")
-                entry = input('pacote>>>')
-                inserir_pacote(conexao, entry)
+                os.system("clear")
+                print("Ctrl + C to exit")
+                entry = input('package name >>>')
+                input_package(connection, entry)
             except KeyboardInterrupt:
                 break
         elif args.L:
-            print("Licença GNU GPLv2.0 para mais detalhes visite <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
+            os.system("clear")
+            print("GNU GPLv2.0 license for more details visit <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
+            break
+        elif args.purge:
+            purge_package(args.purge)
             break
         else:
-            print("Nenhum argumanto digitado!")
+            os.system("clear")
+            print("No arguments entered! >> usage: python3 systux.py [-h] [-d] [-v] [-i] [-V] [-L] [-p , --purge]")
             break
             
-    conexao.close()
+    connection.close()
 
 if __name__ == '__main__':
     main()

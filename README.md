@@ -1,20 +1,22 @@
-# SysTux  v1.0.a3
+# SysTux  v1.0.rc1
 
-#### software linha de comando.
+#### Command line software.
 
-#### Às vezes, é necessário reformatar o seu sistema operacional Linux e reinstalar diversos pacotes. Este script foi desenvolvido para simplificar esse processo, permitindo que você salve uma lista desses pacotes em um banco de dados SQLite portátil. Dessa forma, você pode até mesmo armazenar essa lista em um pendrive, executar os comandos para reinstalar esses pacotes em sua máquina e guardar o script juntamente com o banco de dados em um local conveniente para uso futuro.
+#### Sometimes it is necessary to reformat your Linux operating system and reinstall various packages. This script is designed to simplify this process by allowing you to save a list of these packages to a portable SQLite database. That way, you can even store that list on a USB stick, run the commands to reinstall those packages on your machine, and store the script along with the database in a convenient location for future use.
 
-### Instalação:
 
-    git clone https://github.com/AutoTux/SysTux-v1.0.a2/
+
+### Instalation:
+
+    git clone https://github.com/AutoTux/SysTux-v1.0.rc1/
     
 ----------
 
     cd SysTux-v1.0.a2/
     
-### Como usar:
+### How to use:
 
-#### Ver o menu de opções:
+#### See menu options:
 
     python3 systux -h
     
