@@ -12,7 +12,7 @@
     
 ----------
 
-    cd SysTux-v1.0.a2/
+    cd SysTux-v1.0.rc1/
     
 ### How to use:
 
@@ -20,6 +20,5 @@
 
     python3 systux -h
     
-
-![Captura de tela de 2023-05-23 16-37-21](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/2910d5bd-ad5c-41dc-8a50-d373ed74ded8)
+![Captura de tela de 2023-05-30 11-20-57](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/da56cef2-6a56-46d9-b811-3aa0b3e7f20e)
 
