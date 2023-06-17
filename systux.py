@@ -45,7 +45,6 @@ def input_package(connection, nome_pacote):
 
 
 def purge_package(nome):
-
     conn = sqlite3.connect('systux.db')
     cursor = conn.cursor()
 
