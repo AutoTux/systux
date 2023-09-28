@@ -24,9 +24,10 @@ import subprocess
 import argparse
 import os
 
+DB_NAME = 'systux.db'
 
 def create_connection():
-    connection = sqlite3.connect('systux.db')
+    connection = sqlite3.connect(DB_NAME)
     return connection
 
 
