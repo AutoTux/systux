@@ -24,9 +24,11 @@ import subprocess
 import argparse
 import os
 
+DB_NAME = 'systux.db'
+
 
 def create_connection():
-    connection = sqlite3.connect('systux.db')
+    connection = sqlite3.connect(DB_NAME)
     return connection
 
 
@@ -41,21 +43,18 @@ def input_package(connection, nome_pacote):
     cursor = connection.cursor()
     cursor.execute("INSERT INTO pacotes (nome) VALUES (?)", (nome_pacote,))
     connection.commit()
-    print("Pacote inserido com sucesso!")
+    print("Package inserted successfully!")
 
 
-def purge_package(nome):
-    conn = sqlite3.connect('systux.db')
-    cursor = conn.cursor()
-
+def purge_package(connection, nome):
+    cursor = connection.cursor()
     cursor.execute("DELETE FROM pacotes WHERE nome = ?", (nome,))
+    connection.commit()
+    print("Package deleted successfully!")
 
-    conn.commit()
-    conn.close()
 
-
-def download_package(conexao):
-    cursor = conexao.cursor()
+def download_package(connection):
+    cursor = connection.cursor()
     cursor.execute("SELECT nome FROM pacotes")
     nomes_pacotes = cursor.fetchall()
 
@@ -66,69 +65,59 @@ def download_package(conexao):
         subprocess.run(comando)
         print("Packages successfully downloaded and installed!")
     else:
-        os.system("clear")
-        print("No packages found in database!")
+        print("No packages found in the database!")
 
 
-def visualize_package(conexao):
-    cursor = conexao.cursor()
+def visualize_package(connection):
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM pacotes")
     pacotes = cursor.fetchall()
 
     if pacotes:
-        os.system("clear")
         print("Package names saved in the database:")
         for pacote in pacotes:
             print(pacote[1])
     else:
-        os.system("clear")
-        print("No packages found in database!")
+        print("No packages found in the database!")
 
 
 def main():
     connection = create_connection()
-
     create_table(connection)
 
-    while True:
-        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Stores names of programs to be downloaded in the future,""")
+    parser = argparse.ArgumentParser(prog='systux',
+                                     description="Stores names of programs to be downloaded in the future.")
+    subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
 
-        parser.add_argument('-d', action='store_true', help='Start downloading packages')
-        parser.add_argument('-v', action='store_true', help='Visualize the database')
-        parser.add_argument('-i', action='store_true', help='Insert package names to database')
-        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.rc1')
-        parser.add_argument('-L', action='store_true', help='Show software license')
-        parser.add_argument('-p', '--purge', help='Pass by argument, name of the package to be deleted')
+    # Subcommand to insert a package
+    insert_parser = subparsers.add_parser('insert', help='Insert package names to the database')
+    insert_parser.add_argument('package_name', help='Name of the package to insert')
 
-        args = parser.parse_args()
-        
-        if args.d:
-            download_package(connection)
-            break
-        elif args.v:
-            visualize_package(connection)
-            break
-        elif args.i:
-            try:
-                os.system("clear")
-                print("Ctrl + C to exit")
-                entry = input('package name >>>')
-                input_package(connection, entry)
-            except KeyboardInterrupt:
-                break
-        elif args.L:
-            os.system("clear")
-            print("GNU GPLv2.0 license for more details visit <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
-            break
-        elif args.purge:
-            purge_package(args.purge)
-            break
-        else:
-            os.system("clear")
-            print("No arguments entered! >> usage: python3 systux.py [-h] [-d] [-v] [-i] [-V] [-L] [-p , --purge]")
-            break
-            
+    # Subcommand to delete a package
+    purge_parser = subparsers.add_parser('purge', help='Delete a package from the database')
+    purge_parser.add_argument('package_name', help='Name of the package to delete')
+
+    # Subcommand to download packages
+    download_parser = subparsers.add_parser('download', help='Start downloading packages')
+
+    # Subcommand to visualize the database
+    visualize_parser = subparsers.add_parser('visualize', help='Visualize the database')
+
+    args = parser.parse_args()
+
+    if args.subcommand == 'insert':
+        input_package(connection, args.package_name)
+    elif args.subcommand == 'purge':
+        purge_package(connection, args.package_name)
+    elif args.subcommand == 'download':
+        download_package(connection)
+    elif args.subcommand == 'visualize':
+        visualize_package(connection)
+    else:
+        print("No subcommand provided. Use 'systux -h' for help.")
+
     connection.close()
+
 
 if __name__ == '__main__':
     main()
