@@ -3,6 +3,7 @@
 # Release: v1.0.rc2
 #
 # Copyright (c) 2023  Juan Bindez  <juanbindez780@gmail.com>
+# Copyright (c) 2023  Collin <https://github.com/paradigm-lab>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
