@@ -1,6 +1,6 @@
 # this is part of the SysTux project.
 #
-# Release: v1.0.rc2
+# Release: v1.0.rc3
 #
 # Copyright (c) 2023  Juan Bindez  <juanbindez780@gmail.com>
 # Copyright (c) 2023  Collin <https://github.com/paradigm-lab>
@@ -25,8 +25,8 @@ import subprocess
 import argparse
 import os
 
-DB_NAME = 'systux.db'
 
+DB_NAME = 'systux.db'
 
 def create_connection():
     connection = sqlite3.connect(DB_NAME)

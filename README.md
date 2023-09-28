@@ -1,4 +1,4 @@
-# Systux  v1.0.rc2
+# Systux  v1.0.rc3
 
 #### Command line software.
 
@@ -20,5 +20,4 @@
 
     python3 systux -h
     
-![Captura de tela de 2023-05-30 11-20-57](https://github.com/AutoTux/SysTux-v1.0.a3/assets/79322362/da56cef2-6a56-46d9-b811-3aa0b3e7f20e)
 
