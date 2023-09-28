@@ -26,6 +26,7 @@ import os
 
 DB_NAME = 'systux.db'
 
+
 def create_connection():
     connection = sqlite3.connect(DB_NAME)
     return connection
@@ -42,21 +43,18 @@ def input_package(connection, nome_pacote):
     cursor = connection.cursor()
     cursor.execute("INSERT INTO pacotes (nome) VALUES (?)", (nome_pacote,))
     connection.commit()
-    print("Pacote inserido com sucesso!")
+    print("Package inserted successfully!")
 
 
-def purge_package(nome):
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-
+def purge_package(connection, nome):
+    cursor = connection.cursor()
     cursor.execute("DELETE FROM pacotes WHERE nome = ?", (nome,))
+    connection.commit()
+    print("Package deleted successfully!")
 
-    conn.commit()
-    conn.close()
 
-
-def download_package(conexao):
-    cursor = conexao.cursor()
+def download_package(connection):
+    cursor = connection.cursor()
     cursor.execute("SELECT nome FROM pacotes")
     nomes_pacotes = cursor.fetchall()
 
@@ -67,30 +65,28 @@ def download_package(conexao):
         subprocess.run(comando)
         print("Packages successfully downloaded and installed!")
     else:
-        os.system("clear")
-        print("No packages found in database!")
+        print("No packages found in the database!")
 
 
-def visualize_package(conexao):
-    cursor = conexao.cursor()
+def visualize_package(connection):
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM pacotes")
     pacotes = cursor.fetchall()
 
     if pacotes:
-        os.system("clear")
         print("Package names saved in the database:")
         for pacote in pacotes:
             print(pacote[1])
     else:
-        os.system("clear")
-        print("No packages found in database!")
+        print("No packages found in the database!")
 
 
 def main():
     connection = create_connection()
     create_table(connection)
 
-    parser = argparse.ArgumentParser(prog='systux', description="Stores names of programs to be downloaded in the future.")
+    parser = argparse.ArgumentParser(prog='systux',
+                                     description="Stores names of programs to be downloaded in the future.")
     subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
 
     # Subcommand to insert a package
@@ -121,6 +117,7 @@ def main():
         print("No subcommand provided. Use 'systux -h' for help.")
 
     connection.close()
+
 
 if __name__ == '__main__':
     main()
