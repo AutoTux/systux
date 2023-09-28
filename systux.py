@@ -88,47 +88,38 @@ def visualize_package(conexao):
 
 def main():
     connection = create_connection()
-
     create_table(connection)
 
-    while True:
-        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Stores names of programs to be downloaded in the future,""")
+    parser = argparse.ArgumentParser(prog='systux', description="Stores names of programs to be downloaded in the future.")
+    subparsers = parser.add_subparsers(title="subcommands", dest="subcommand")
 
-        parser.add_argument('-d', action='store_true', help='Start downloading packages')
-        parser.add_argument('-v', action='store_true', help='Visualize the database')
-        parser.add_argument('-i', action='store_true', help='Insert package names to database')
-        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.rc1')
-        parser.add_argument('-L', action='store_true', help='Show software license')
-        parser.add_argument('-p', '--purge', help='Pass by argument, name of the package to be deleted')
+    # Subcommand to insert a package
+    insert_parser = subparsers.add_parser('insert', help='Insert package names to the database')
+    insert_parser.add_argument('package_name', help='Name of the package to insert')
 
-        args = parser.parse_args()
-        
-        if args.d:
-            download_package(connection)
-            break
-        elif args.v:
-            visualize_package(connection)
-            break
-        elif args.i:
-            try:
-                os.system("clear")
-                print("Ctrl + C to exit")
-                entry = input('package name >>>')
-                input_package(connection, entry)
-            except KeyboardInterrupt:
-                break
-        elif args.L:
-            os.system("clear")
-            print("GNU GPLv2.0 license for more details visit <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
-            break
-        elif args.purge:
-            purge_package(args.purge)
-            break
-        else:
-            os.system("clear")
-            print("No arguments entered! >> usage: python3 systux.py [-h] [-d] [-v] [-i] [-V] [-L] [-p , --purge]")
-            break
-            
+    # Subcommand to delete a package
+    purge_parser = subparsers.add_parser('purge', help='Delete a package from the database')
+    purge_parser.add_argument('package_name', help='Name of the package to delete')
+
+    # Subcommand to download packages
+    download_parser = subparsers.add_parser('download', help='Start downloading packages')
+
+    # Subcommand to visualize the database
+    visualize_parser = subparsers.add_parser('visualize', help='Visualize the database')
+
+    args = parser.parse_args()
+
+    if args.subcommand == 'insert':
+        input_package(connection, args.package_name)
+    elif args.subcommand == 'purge':
+        purge_package(connection, args.package_name)
+    elif args.subcommand == 'download':
+        download_package(connection)
+    elif args.subcommand == 'visualize':
+        visualize_package(connection)
+    else:
+        print("No subcommand provided. Use 'systux -h' for help.")
+
     connection.close()
 
 if __name__ == '__main__':
