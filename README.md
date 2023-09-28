@@ -1,4 +1,4 @@
-# SysTux  v1.0.rc2
+# Systux  v1.0.rc2
 
 #### Command line software.
 
