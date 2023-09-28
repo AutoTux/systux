@@ -1,4 +1,4 @@
-# SysTux  v1.0.rc1
+# SysTux  v1.0.rc2
 
 #### Command line software.
 
@@ -8,11 +8,11 @@
 
 ### Instalation:
 
-    git clone https://github.com/AutoTux/SysTux-v1.0.rc1/
+    git clone https://github.com/AutoTux/SysTux/
     
 ----------
 
-    cd SysTux-v1.0.rc1/
+    cd SysTux/
     
 ### How to use:
 
