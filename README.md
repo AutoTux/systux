@@ -8,16 +8,8 @@
 
 ### Instalation:
 
-    git clone https://github.com/AutoTux/SysTux/
-    
-----------
+    pip install systux
 
-    cd SysTux/
-    
-### How to use:
+### usage
 
-#### See menu options:
-
-    python3 systux -h
-    
-
+    systux -h
