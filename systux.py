@@ -26,14 +26,16 @@ import os
 
 
 def create_connection():
-    connection = sqlite3.connect('systux.db')
+    connection = sqlite3.connect("systux.db")
     return connection
 
 
 def create_table(connection):
     cursor = connection.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS pacotes
-                      (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)''')
+    cursor.execute(
+        """CREATE TABLE IF NOT EXISTS pacotes
+                      (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)"""
+    )
     connection.commit()
 
 
@@ -45,7 +47,7 @@ def input_package(connection, nome_pacote):
 
 
 def purge_package(nome):
-    conn = sqlite3.connect('systux.db')
+    conn = sqlite3.connect("systux.db")
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM pacotes WHERE nome = ?", (nome,))
@@ -91,17 +93,28 @@ def main():
     create_table(connection)
 
     while True:
-        parser = argparse.ArgumentParser(prog='python3 systux.py', description="""Stores names of programs to be downloaded in the future,""")
+        parser = argparse.ArgumentParser(
+            prog="python3 systux.py",
+            description="""Stores names of programs to be downloaded in the future,""",
+        )
 
-        parser.add_argument('-d', action='store_true', help='Start downloading packages')
-        parser.add_argument('-v', action='store_true', help='Visualize the database')
-        parser.add_argument('-i', action='store_true', help='Insert package names to database')
-        parser.add_argument('-V', '--version', action='version', version='SysTux 1.0.rc1')
-        parser.add_argument('-L', action='store_true', help='Show software license')
-        parser.add_argument('-p', '--purge', help='Pass by argument, name of the package to be deleted')
+        parser.add_argument(
+            "-d", action="store_true", help="Start downloading packages"
+        )
+        parser.add_argument("-v", action="store_true", help="Visualize the database")
+        parser.add_argument(
+            "-i", action="store_true", help="Insert package names to database"
+        )
+        parser.add_argument(
+            "-V", "--version", action="version", version="SysTux 1.0.rc1"
+        )
+        parser.add_argument("-L", action="store_true", help="Show software license")
+        parser.add_argument(
+            "-p", "--purge", help="Pass by argument, name of the package to be deleted"
+        )
 
         args = parser.parse_args()
-        
+
         if args.d:
             download_package(connection)
             break
@@ -112,23 +125,28 @@ def main():
             try:
                 os.system("clear")
                 print("Ctrl + C to exit")
-                entry = input('package name >>>')
+                entry = input("package name >>>")
                 input_package(connection, entry)
             except KeyboardInterrupt:
                 break
         elif args.L:
             os.system("clear")
-            print("GNU GPLv2.0 license for more details visit <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>")
+            print(
+                "GNU GPLv2.0 license for more details visit <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>"
+            )
             break
         elif args.purge:
             purge_package(args.purge)
             break
         else:
             os.system("clear")
-            print("No arguments entered! >> usage: python3 systux.py [-h] [-d] [-v] [-i] [-V] [-L] [-p , --purge]")
+            print(
+                "No arguments entered! >> usage: python3 systux.py [-h] [-d] [-v] [-i] [-V] [-L] [-p , --purge]"
+            )
             break
-            
+
     connection.close()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
